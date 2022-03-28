@@ -27,7 +27,30 @@ def mostretweeted(tweets=data):
     for tweet in tweets_rank:
         print(f'Tweet id: {tweet[0]} retweets:{ tweet[1]}')
 
+def usersWithMostTweets(tweets=data):
+    #creating a more useful hashmap id:count
+    users = dict() 
+    for tweet in tweets:
+        if tweet['user']['id'] not in users.keys():
+            users[tweet['user']['id']] = 1
+        else:
+            tweet['user']['id'] +=1
+    top_users = []
+    for user in users:
+        if len(top_users) < 10:
+            top_users.append(user)
+        else:
+            for i in range(10):
+                if users[top_users[i]] < users[users]:
+                    top_users[i] = user
+                    break
+    print('Users that tweet the most:')
+    for user in top_users:
+        print(f'User ID: {user} number of tweets: {users[user]}')
+
+
 def main():
     print("Ejercicio 1")
     mostretweeted()
     print("Ejercicio 2")
+    usersWithMostTweets
