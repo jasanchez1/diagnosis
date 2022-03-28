@@ -49,8 +49,31 @@ def usersWithMostTweets(tweets=data):
         print(f'User ID: {user} number of tweets: {users[user]}')
 
 
+def datesWithMostTweets(tweets=data):
+    #creating a more useful hashmap id:count
+    dates = dict() 
+    for tweet in tweets:
+        if tweet['date']['id'] not in dates.keys():
+            dates[tweet['date']['id']] = 1
+        else:
+            tweet['date']['id'] +=1
+    top_dates = []
+    for date in dates:
+        if len(top_dates) < 10:
+            top_dates.append(date)
+        else:
+            for i in range(10):
+                if dates[top_dates[i]] < dates[dates]:
+                    top_dates[i] = date
+                    break
+    print('dates that tweet the most:')
+    for date in top_dates:
+        print(f'date ID: {date} number of tweets: {dates[date]}')
+
 def main():
     print("Ejercicio 1")
     mostretweeted()
     print("Ejercicio 2")
-    usersWithMostTweets
+    usersWithMostTweets()
+    print("Ejercicio 3")
+    datesWithMostTweets()
