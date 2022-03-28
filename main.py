@@ -53,10 +53,10 @@ def datesWithMostTweets(tweets=data):
     #creating a more useful hashmap id:count
     dates = dict() 
     for tweet in tweets:
-        if tweet['date']['id'] not in dates.keys():
-            dates[tweet['date']['id']] = 1
+        if tweet['date'] not in dates.keys():
+            dates[tweet['date']] = 1
         else:
-            tweet['date']['id'] +=1
+            dates[tweet['date']] +=1
     top_dates = []
     for date in dates:
         if len(top_dates) < 10:
@@ -70,6 +70,28 @@ def datesWithMostTweets(tweets=data):
     for date in top_dates:
         print(f'date ID: {date} number of tweets: {dates[date]}')
 
+def hashtagsWithMostTweets(tweets=data):
+    #creating a more useful hashmap id:count
+    hashtags = dict() 
+    for tweet in tweets:
+        for hashtag in tweet['entities']['hashtags']:
+            if hashtag not in hashtags.keys():
+                hashtags[hashtag] = 1
+            else:
+                hashtags[hashtag] +=1
+    top_hashtags = []
+    for hashtag in hashtags:
+        if len(top_hashtags) < 10:
+            top_hashtags.append(hashtag)
+        else:
+            for i in range(10):
+                if hashtags[top_hashtags[i]] < hashtags[hashtags]:
+                    top_hashtags[i] = hashtag
+                    break
+    print('hashtags that tweet the most:')
+    for hashtag in top_hashtags:
+        print(f'hashtag ID: {hashtag} number of tweets: {hashtags[hashtag]}')
+
 def main():
     print("Ejercicio 1")
     mostretweeted()
@@ -77,3 +99,5 @@ def main():
     usersWithMostTweets()
     print("Ejercicio 3")
     datesWithMostTweets()
+    print("Ejercicio 4")
+    hashtagsWithMostTweets()
